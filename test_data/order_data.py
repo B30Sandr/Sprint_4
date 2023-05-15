@@ -22,3 +22,11 @@ orderPageData = [{
      'description': 'Корректные данные'
      },
 ]
+
+
+class ValidationErrors:
+    NAME = "Введите корректное имя"
+    LAST_NAME = "Введите корректную фамилию"
+    ADDRESS = "Введите корректный адрес"
+    SUBWAY = "Выберите станцию"
+    PHONE_NUMBER = "Введите корректный номер"

@@ -2,53 +2,57 @@ import pytest
 
 import allure
 
-from locators.order_page import OrderPageLocator
+from locators.order_page_locators import OrderPageLocator
 from page_objects.order_page import OrderPage
-from test_data.order_data import orderPageData
+from test_data.order_data import orderPageData, ValidationErrors
 from test_data.urls import Urls
 
 
 @allure.story('Тестирование страницы оформления заказа')
 class TestYaScooterOrderPage:
-    @allure.description('Некорректное Имя')
+    @allure.description(ValidationErrors.NAME)
     def test_order_page_first_name_input_incorrect_show_error_message(self, driver):
         order_page = OrderPage(driver)
         order_page.go_to_site(Urls.ORDER_PAGE)
         order_page.input_first_name('KOlya')
         order_page.go_next()
-        assert order_page.find_element(OrderPageLocator.INCORRECT_FIRST_NAME_MESSAGE).is_displayed()
+        error_div = order_page.find_element(OrderPageLocator.INCORRECT_FIRST_NAME_MESSAGE)
+        assert error_div.is_displayed() and error_div.text == ValidationErrors.NAME
 
-    @allure.description('Некорректная Фамилия')
+    @allure.description(ValidationErrors.LAST_NAME)
     def test_order_page_last_name_input_incorrect_show_error_message(self, driver):
         order_page = OrderPage(driver)
         order_page.go_to_site(Urls.ORDER_PAGE)
         order_page.input_last_name('Lunin')
         order_page.go_next()
-        assert order_page.find_element(OrderPageLocator.INCORRECT_LAST_NAME_MESSAGE).is_displayed()
+        error_div = order_page.find_element(OrderPageLocator.INCORRECT_LAST_NAME_MESSAGE)
+        assert error_div.is_displayed() and error_div.text == ValidationErrors.LAST_NAME
 
-    @allure.description('Некорректный адрес')
+    @allure.description(ValidationErrors.ADDRESS)
     def test_order_page_address_input_incorrect_show_error_message(self, driver):
         order_page = OrderPage(driver)
         order_page.go_to_site(Urls.ORDER_PAGE)
         order_page.input_address('Moscow')
         order_page.go_next()
-        assert order_page.find_element(OrderPageLocator.INCORRECT_ADDRESS_MESSAGE).is_displayed()
+        error_div = order_page.find_element(OrderPageLocator.INCORRECT_ADDRESS_MESSAGE)
+        assert error_div.is_displayed() and error_div.text == ValidationErrors.ADDRESS
 
-    @allure.description('Не заполнено метро')
+    @allure.description(ValidationErrors.SUBWAY)
     def test_order_page_subway_input_empty_show_error_message(self, driver):
         order_page = OrderPage(driver)
         order_page.go_to_site(Urls.ORDER_PAGE)
         order_page.go_next()
-        assert order_page.find_element(OrderPageLocator.INCORRECT_SUBWAY_MESSAGE).is_displayed()
+        error_div = order_page.find_element(OrderPageLocator.INCORRECT_SUBWAY_MESSAGE)
+        assert error_div.is_displayed() and error_div.text == ValidationErrors.SUBWAY
 
-    @allure.description('Некорректный номер телефона')
+    @allure.description(ValidationErrors.PHONE_NUMBER)
     def test_order_page_telephone_number_input_incorrect_show_error_message(self, driver):
         order_page = OrderPage(driver)
         order_page.go_to_site(Urls.ORDER_PAGE)
         order_page.input_telephone_number('123')
         order_page.go_next()
-        assert order_page.find_element(
-            OrderPageLocator.INCORRECT_TELEPHONE_NUMBER_MESSAGE).is_displayed()
+        error_div = order_page.find_element(OrderPageLocator.INCORRECT_TELEPHONE_NUMBER_MESSAGE)
+        assert error_div.is_displayed() and error_div.text == ValidationErrors.PHONE_NUMBER
 
     @allure.description('Заполнить данные на этапе "Для кого самокат" и перейти на этап "Про аренду"')
     def test_order_page_go_to_choose_scooter_user_data_correct_open_about_rent(self, driver):

@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class OrderPageLocator:
+    HEADER = [By.XPATH, ".//div[contains(@class,'Order_Header')]"]
     FIRST_NAME_INPUT = [By.XPATH, ".//input[contains(@placeholder,'Имя')]"]
     INCORRECT_FIRST_NAME_MESSAGE = [By.XPATH, ".//input[contains(@placeholder,'Имя')]/parent::div/div"]
     LAST_NAME_INPUT = [By.XPATH, ".//input[contains(@placeholder,'Фамилия')]"]

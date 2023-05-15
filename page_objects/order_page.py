@@ -2,7 +2,7 @@ import re
 
 import allure
 
-from locators.order_page import OrderPageLocator
+from locators.order_page_locators import OrderPageLocator
 from page_objects.main_page import MainPage
 
 
@@ -21,8 +21,8 @@ class OrderPage(MainPage):
 
     @allure.step('Выбор метро')
     def choose_subway(self, subway_name: str):
-        self.find_element(OrderPageLocator.SUBWAY_FIELD).click()
-        return self.find_element(OrderPageLocator.SUBWAY_HINT_BUTTON(subway_name)).click()
+        self.click_to_element(OrderPageLocator.SUBWAY_FIELD)
+        return self.click_to_element(OrderPageLocator.SUBWAY_HINT_BUTTON(subway_name))
 
     @allure.step('Ввод номера телефона')
     def input_telephone_number(self, telephone_number: str):
@@ -30,7 +30,7 @@ class OrderPage(MainPage):
 
     @allure.step('Перейти на следующий этап заказа')
     def go_next(self):
-        return self.find_element(OrderPageLocator.NEXT_BUTTON).click()
+        return self.click_to_element(OrderPageLocator.NEXT_BUTTON)
 
     @allure.step('Ввод даты')
     def input_date(self, date: str):
@@ -51,11 +51,11 @@ class OrderPage(MainPage):
 
     @allure.step('Нажать "Заказать"')
     def click_order(self):
-        return self.find_element(OrderPageLocator.ORDER_BUTTON).click()
+        return self.click_to_element(OrderPageLocator.ORDER_BUTTON)
 
     @allure.step('Подтвердить заказ')
     def click_accept_order(self):
-        return self.find_element(OrderPageLocator.ACCEPT_ORDER_BUTTON).click()
+        return self.click_to_element(OrderPageLocator.ACCEPT_ORDER_BUTTON)
 
     @allure.step('Вычитать номер заказа')
     def get_order_number(self):
@@ -64,7 +64,7 @@ class OrderPage(MainPage):
 
     @allure.step('Перейти к статусу заказа')
     def click_go_to_status(self):
-        return self.find_element(OrderPageLocator.SHOW_STATUS_BUTTON).click()
+        return self.click_to_element(OrderPageLocator.SHOW_STATUS_BUTTON)
 
     @allure.step('Заполнить данные на этапе "Для кого самокат"')
     def fill_user_data(self, data_set: dict):
